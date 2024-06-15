@@ -1,0 +1,38 @@
+{
+    "name": "new-app",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack --config webpack.prod.js",
+        "start": "webpack serve --open --config webpack.dev.js",
+        "updateGH": "git subtree push --prefix dist origin gh-pages"
+    },
+    "author": "elishamutang",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/eslintrc": "^3.0.2",
+        "@eslint/js": "^9.1.1",
+        "css-loader": "^6.9.1",
+        "css-minimizer-webpack-plugin": "^6.0.0",
+        "eslint": "^8.57.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-import": "^2.29.1",
+        "globals": "^15.0.0",
+        "html-webpack-plugin": "^5.6.0",
+        "mini-css-extract-plugin": "^2.9.0",
+        "prettier": "3.2.5",
+        "style-loader": "^3.3.4",
+        "webp-loader": "^0.6.0",
+        "webpack": "^5.90.0",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^4.15.1",
+        "webpack-merge": "^5.10.0"
+    },
+    "dependencies": {
+        "boxicons": "^2.1.4",
+        "date-fns": "^3.3.1",
+        "rcolor": "^2.0.2"
+    }
+}
