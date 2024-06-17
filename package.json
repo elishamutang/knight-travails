@@ -2,7 +2,7 @@
     "name": "new-app",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "knightTravails.js",
     "scripts": {
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
