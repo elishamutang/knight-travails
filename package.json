@@ -2,7 +2,7 @@
     "name": "new-app",
     "version": "1.0.0",
     "description": "",
-    "main": "knightTravails.js",
+    "main": "./src/knightTravails.js",
     "scripts": {
         "build": "webpack --config webpack.prod.js",
         "start": "webpack serve --open --config webpack.dev.js",
@@ -31,8 +31,10 @@
         "webpack-merge": "^5.10.0"
     },
     "dependencies": {
+        "binary-search-tree-by-eli": "^1.0.2",
         "boxicons": "^2.1.4",
         "date-fns": "^3.3.1",
+        "mergesort-by-eli": "^1.0.3",
         "rcolor": "^2.0.2"
     }
 }
