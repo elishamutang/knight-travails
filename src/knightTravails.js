@@ -19,8 +19,6 @@ console.log('Chessboard')
 console.log(chessboard)
 
 function knightMoves(start, end) {
-    // console.log(allMoves)
-
     console.log(`Start: ${start}, End: ${end}`)
 
     // Returns position object.
@@ -37,37 +35,52 @@ function knightMoves(start, end) {
     // Initiate the queue.
     let queue = [findElem(start)]
 
-    let [row, col] = end
+    let [startRow, startCol] = start
+    let [endRow, endCol] = end
 
-    if (queue.length !== 0) {
-        let visitedPos = queue.shift()
+    // Return starting point if start === end.
+    if (startRow === endRow && startCol === endCol) return start
 
-        // If end pos is in visitedPos adjancencies, checkForAdjacentNodes array length !== 0.
-        // Else, go through each adjacent nodes.
-        let checkForAdjacentNodes = visitedPos.adjancencies.filter((elem) => {
-            if (elem[0] === row && elem[1] === col) return elem
+    // BFS on all adjacent nodes.
+    while (queue.length !== 0) {
+        let visitedNode = queue.shift()
+
+        // If end position is in visitedNode adjacency list, return the node in checkForAdjNodes array.
+        // Else, add each adjacent node from visitedNode adjacency list to the queue.
+        let checkForAdjNodes = visitedNode.adjancencies.filter((elem) => {
+            if (elem[0] === endRow && elem[1] === endCol) return elem
         })
 
-        if (checkForAdjacentNodes.length === 0) {
-            if (visitedPos.coordinate[0] !== row && visitedPos.coordinate[1] !== col) {
-                queue.push(visitedPos.adjancencies[0])
-                knightMoves(visitedPos.adjancencies[0], end)
-            } else {
-                console.log(visitedPos)
+        // console.log(visitedNode)
+
+        if (checkForAdjNodes.length === 0) {
+            if (visitedNode.coordinate[0] !== endRow || visitedNode.coordinate[1] !== endCol) {
+                visitedNode.adjancencies.forEach((adjNode) => {
+                    queue.push(findElem(adjNode))
+                })
             }
+        } else {
+            // Program will enter here if end node is found in visitedNode adjacency list.
+
+            let prevNodeOfTargetNode = visitedNode
+
+            console.log(`Prev node before end node: ${prevNodeOfTargetNode.coordinate}`)
+
+            console.log(knightMoves(start, prevNodeOfTargetNode.coordinate))
+
+            return checkForAdjNodes.flat()
         }
     }
-
-    // console.log('New queue')
-    // console.log(queue)
 }
 
 let allMoves = []
 
+// Generates all possible moves from any location on the chessboard.
 const possibleMoves = (start) => {
     let [a, b] = start
     let newNode = new node(start)
 
+    // A total of 8 different moves can be done.
     newNode.adjancencies.push([a + 1, b + 2])
     newNode.adjancencies.push([a + 2, b + 1])
     newNode.adjancencies.push([a - 1, b - 2])
@@ -80,13 +93,14 @@ const possibleMoves = (start) => {
     newNode.adjancencies = newNode.adjancencies.filter((elem) => {
         let [c, d] = elem
 
+        // Return locations where it does not go "off" the board.
         if (c >= 0 && d >= 0 && c < 7 && d < 7) return elem
     })
 
     allMoves.push(newNode)
 }
 
-// Gather all possible moves from every location of the chessboard.
+// Generate all possible moves from every location of the chessboard.
 for (let i = 0; i < chessboard.length; i++) {
     for (let j = 0; j < chessboard[i].length; j++) {
         possibleMoves([i, j])
@@ -95,4 +109,6 @@ for (let i = 0; i < chessboard.length; i++) {
 
 console.log(allMoves)
 
-knightMoves([0, 0], [3, 3])
+console.log(knightMoves([0, 0], [4, 4]))
+// console.log(knightMoves([3, 3], [0, 0]))
+// console.log(knightMoves([0, 0], [4, 4]))
