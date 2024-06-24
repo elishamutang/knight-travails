@@ -66,7 +66,9 @@ function knightMoves(start, end) {
 
             console.log(`Prev node before end node: ${prevNodeOfTargetNode.coordinate}`)
 
-            console.log(knightMoves(start, prevNodeOfTargetNode.coordinate))
+            // !* FIX HERE
+            // console.log(knightMoves(start, prevNodeOfTargetNode.coordinate))
+            shortestPath.push(knightMoves(start, prevNodeOfTargetNode.coordinate))
 
             return checkForAdjNodes.flat()
         }
@@ -74,6 +76,7 @@ function knightMoves(start, end) {
 }
 
 let allMoves = []
+let shortestPath = []
 
 // Generates all possible moves from any location on the chessboard.
 const possibleMoves = (start) => {
@@ -110,5 +113,6 @@ for (let i = 0; i < chessboard.length; i++) {
 console.log(allMoves)
 
 console.log(knightMoves([0, 0], [4, 4]))
+console.log(shortestPath)
 // console.log(knightMoves([3, 3], [0, 0]))
 // console.log(knightMoves([0, 0], [4, 4]))
