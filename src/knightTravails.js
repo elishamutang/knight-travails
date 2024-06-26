@@ -41,9 +41,9 @@ function knightMoves(start, end) {
         let [endRow, endCol] = end
 
         // Return starting point if start === end.
-        if (startRow === endRow && startCol === endCol) return start
+        if (startRow === endRow && startCol === endCol) return [start]
 
-        if (queue.length !== 0) {
+        while (queue.length !== 0) {
             let visitedNode = queue.shift()
 
             // If end position is in visitedNode adjacency list, return the node in checkForAdjNodes array.
@@ -52,22 +52,25 @@ function knightMoves(start, end) {
                 if (elem[0] === endRow && elem[1] === endCol) return elem
             })
 
-            console.log(visitedNode)
+            // console.log(visitedNode)
 
             if (checkAdjNodes.length === 0) {
                 visitedNode.adjancencies.forEach((adjNode) => {
                     queue.push(findElem(adjNode))
                 })
             } else {
-                return visitedNode.coordinate
-            }
+                let sequence = knightMoves(start, visitedNode.coordinate)
 
-            return trackSeq(visitedNode.coordinate, end)
+                sequence.push(checkAdjNodes.flat())
+
+                return sequence
+            }
         }
     }
 
     let shortestPath = trackSeq(start, end)
-    console.log(shortestPath)
+
+    return shortestPath
 
     // BFS on all adjacent nodes.
     // while (queue.length !== 0) {
@@ -138,6 +141,6 @@ for (let i = 0; i < chessboard.length; i++) {
 
 console.log(allMoves)
 
-// console.log(knightMoves([0, 0], [4, 4]))
-console.log(knightMoves([3, 3], [0, 0]))
+console.log(knightMoves([0, 0], [3, 3]))
+// console.log(knightMoves([3, 3], [0, 0]))
 // console.log(knightMoves([0, 0], [4, 4]))
