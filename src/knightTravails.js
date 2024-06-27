@@ -31,40 +31,41 @@ export default function knightMoves(start, end) {
     // Initiate the queue.
     let queue = [findElem(start)]
 
+    let [startRow, startCol] = start
+    let [endRow, endCol] = end
+
+    // If start or end positions are "off" the chessboard, return error.
+    if (startRow < 0 || startRow > 7 || endRow < 0 || endCol > 7) throw new Error('Out of bounds.')
+
+    // Return starting point if start === end.
+    if (startRow === endRow && startCol === endCol) return [start]
+
     // BFS on all adjacent nodes.
-    const trackSeq = (start, end) => {
-        let [startRow, startCol] = start
-        let [endRow, endCol] = end
-
-        // Return starting point if start === end.
-        if (startRow === endRow && startCol === endCol) return [start]
-
+    const trackSeq = () => {
         while (queue.length !== 0) {
             let visitedNode = queue.shift()
 
             // If end position is in visitedNode adjacency list, return the node in checkForAdjNodes array.
-            // Else, add each adjacent node from visitedNode adjacency list to the queue.
             let checkAdjNodes = visitedNode.adjancencies.filter((elem) => {
                 if (elem[0] === endRow && elem[1] === endCol) return elem
             })
 
+            // Else, add each adjacent nodes from visitedNode adjacency list to the queue and loop.
             if (checkAdjNodes.length === 0) {
                 visitedNode.adjancencies.forEach((adjNode) => {
                     queue.push(findElem(adjNode))
                 })
             } else {
-                // console.log(visitedNode)
+                // If end position is found, program enters here.
                 let sequence = knightMoves(start, visitedNode.coordinate)
 
                 sequence.push(checkAdjNodes.flat())
-
                 return sequence
             }
         }
     }
 
-    let shortestPath = trackSeq(start, end)
-    return shortestPath
+    return trackSeq()
 }
 
 // Store all possible moves at each location on chessboard inside allMoves array.
