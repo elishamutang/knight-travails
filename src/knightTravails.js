@@ -15,10 +15,8 @@ const chessboard = Array(8)
         return elem.fill(0)
     })
 
-console.log('Chessboard')
-console.log(chessboard)
-
-function knightMoves(start, end) {
+// Generates shortest pathway from start to end of a knight piece.
+export default function knightMoves(start, end) {
     // Returns position object.
     const findElem = (elem) => {
         let [a, b] = elem
@@ -69,10 +67,10 @@ function knightMoves(start, end) {
     }
 
     let shortestPath = trackSeq(start, end)
-
     return shortestPath
 }
 
+// Store all possible moves at each location on chessboard inside allMoves array.
 let allMoves = []
 
 // Generates all possible moves from any location on the chessboard.
@@ -106,11 +104,3 @@ for (let i = 0; i < chessboard.length; i++) {
         possibleMoves([i, j])
     }
 }
-
-console.log(allMoves)
-
-// console.log(knightMoves([0, 0], [3, 3]))
-// console.log(knightMoves([3, 3], [0, 0]))
-// console.log(knightMoves([0, 0], [4, 4]))
-
-let result = knightMoves([0, 0], [3, 3])
