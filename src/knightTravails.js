@@ -33,8 +33,6 @@ export default function knightMoves(start, end) {
 
     // BFS on all adjacent nodes.
     const trackSeq = (start, end) => {
-        // console.log(`Start: ${start}, End: ${end}`)
-
         let [startRow, startCol] = start
         let [endRow, endCol] = end
 
@@ -50,13 +48,12 @@ export default function knightMoves(start, end) {
                 if (elem[0] === endRow && elem[1] === endCol) return elem
             })
 
-            // console.log(visitedNode)
-
             if (checkAdjNodes.length === 0) {
                 visitedNode.adjancencies.forEach((adjNode) => {
                     queue.push(findElem(adjNode))
                 })
             } else {
+                // console.log(visitedNode)
                 let sequence = knightMoves(start, visitedNode.coordinate)
 
                 sequence.push(checkAdjNodes.flat())
@@ -92,7 +89,7 @@ const possibleMoves = (start) => {
         let [c, d] = elem
 
         // Return locations where it does not go "off" the board.
-        if (c >= 0 && d >= 0 && c < 7 && d < 7) return elem
+        if (c >= 0 && d >= 0 && c < 8 && d < 8) return elem
     })
 
     allMoves.push(newNode)
