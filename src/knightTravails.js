@@ -98,8 +98,8 @@ const possibleMoves = (start) => {
 
 // Generate all possible moves from every location of the chessboard.
 // The chessboard will be such that the 0th row is at the bottom (last row), hence we start from 7 and decrease from there.
-for (let i = 7; i >= 0; i--) {
-    for (let j = 0; j <= 7; j++) {
+for (let i = chessboard.length - 1; i >= 0; i--) {
+    for (let j = 0; j <= chessboard.length - 1; j++) {
         possibleMoves([i, j])
     }
 }
