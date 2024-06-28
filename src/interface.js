@@ -54,9 +54,15 @@ export default function generateDOM() {
                 return parseInt(elem)
             })
 
+            locationHover.querySelector('p').textContent = 'You are hovering at:'
+
             // Display at menu left of the chessboard.
             location.textContent = `[${coord[0]}, ${coord[1]}]`
         }
+    })
+
+    chessboardCon.addEventListener('mouseleave', (e) => {
+        locationHover.querySelector('p').textContent = 'You were hovering at:'
     })
 
     // Allow users to choose a start and end point, then display the path from start to end.
