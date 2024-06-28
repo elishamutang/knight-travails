@@ -90,3 +90,7 @@ body {
     height: 100%;
     border: 1px solid black;
 }
+
+.box:hover {
+    border: 2px solid orange;
+}
