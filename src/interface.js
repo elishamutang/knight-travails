@@ -30,6 +30,8 @@ export default function generateDOM() {
 
             if (j % 2 === 0 && i % 2 === 0) {
                 box.style.background = 'black'
+            } else {
+                box.style.background = 'white'
             }
 
             if (j % 2 !== 0 && i % 2 !== 0) {
