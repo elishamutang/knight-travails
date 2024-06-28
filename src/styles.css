@@ -29,7 +29,13 @@ body {
     width: 20%;
     height: 30vh;
     border: 1px solid red;
-    display: flex;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 0.5fr;
+    grid-template-areas:
+        'start end'
+        'location location';
 }
 
 #container {
@@ -43,9 +49,33 @@ body {
 }
 
 .innerDiv {
-    width: 50%;
-    height: 10%;
+    width: 100%;
+    height: 100%;
     border: 1px solid red;
+}
+
+#start {
+    grid-area: start;
+}
+
+#end {
+    grid-area: end;
+}
+
+#locationHover {
+    grid-area: location;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#location {
+    width: 50%;
+    margin-top: 2%;
+    border: 1px solid red;
+    text-align: center;
 }
 
 .row {
