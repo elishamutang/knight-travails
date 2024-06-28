@@ -66,4 +66,25 @@ export default function generateDOM() {
     })
 
     // Allow users to choose a start and end point, then display the path from start to end.
+    const allLocations = Array.from(document.getElementsByClassName('box'))
+        .map((loc) => {
+            return loc.id
+        })
+        .sort()
+
+    const startSelect = document.getElementById('startPos') // Populate all locations for each dropdown menu for Start and End.
+    const endSelect = document.getElementById('endPos')
+
+    allLocations.forEach((loc) => {
+        let optionElem = document.createElement('option')
+        optionElem.value = loc
+        optionElem.textContent = loc
+
+        startSelect.append(optionElem)
+
+        // Need to copy optionElem here and append to End Select tag.
+        let optionElemCopy = optionElem.cloneNode(true)
+
+        endSelect.append(optionElemCopy)
+    })
 }
