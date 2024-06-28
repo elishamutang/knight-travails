@@ -16,17 +16,36 @@ body {
     min-height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1.5%;
+}
+
+#menu,
+#container {
+    margin-top: 5vh;
+}
+
+#menu {
+    width: 20%;
+    height: 30vh;
+    border: 1px solid red;
+    display: flex;
 }
 
 #container {
     width: 40%;
-    min-width: 50%;
+    max-width: 50%;
     height: 85vh;
     border: 1px solid black;
 
     display: flex;
     flex-direction: column;
+}
+
+.innerDiv {
+    width: 50%;
+    height: 10%;
+    border: 1px solid red;
 }
 
 .row {
