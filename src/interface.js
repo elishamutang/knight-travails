@@ -40,9 +40,23 @@ export default function generateDOM() {
         }
     }
 
-    // Add event listeners to the board.
-    chessboardCon.addEventListener('click', (e) => {
-        console.log(e.target)
+    // Create a div inside locationHover to show location hovered.
+    const locationHover = document.getElementById('locationHover')
+    const location = document.createElement('div')
+    location.id = 'location'
+
+    locationHover.append(location)
+
+    // When user hovers over chessboard, it shows the location in [0,0] form at each box.
+    chessboardCon.addEventListener('mouseover', (e) => {
+        if (e.target.className === 'box') {
+            const coord = e.target.id.split(',').map((elem) => {
+                return parseInt(elem)
+            })
+
+            // Display at menu left of the chessboard.
+            location.textContent = `[${coord[0]}, ${coord[1]}]`
+        }
     })
 
     // Allow users to choose a start and end point, then display the path from start to end.
