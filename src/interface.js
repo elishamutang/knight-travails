@@ -1,3 +1,5 @@
+import knight from './asset/knight.png'
+
 // Generate the chessboard
 const generateChessboard = () => {
     const chessboard = Array(8)
@@ -88,5 +90,31 @@ export default function generateDOM() {
         let optionElemCopy = optionElem.cloneNode(true)
 
         endSelect.append(optionElemCopy)
+    })
+
+    // Initialize [0,0] as starting point. Put knight image at that location.
+    const knightStartPoint = document.getElementById(`${startSelect.value}`)
+    const knightImg = document.createElement('img')
+    knightImg.id = 'knight'
+    knightImg.src = knight
+
+    knightStartPoint.append(knightImg)
+
+    // Listen to change events for select tags.
+    startSelect.addEventListener('change', (e) => {
+        console.log(document.getElementById(`${startSelect.value}`))
+    })
+
+    endSelect.addEventListener('change', (e) => {})
+
+    // Get input from select tags upon clicking submit button.
+    const submitBtn = document.getElementById('submitBtn')
+
+    submitBtn.addEventListener('click', (e) => {
+        console.log(`Start: ${startSelect.value}`)
+
+        console.log(document.getElementById(`${startSelect.value}`))
+
+        console.log(`End: ${endSelect.value}`)
     })
 }
