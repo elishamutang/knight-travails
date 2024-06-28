@@ -74,7 +74,7 @@ body {
 }
 
 .innerDiv > p {
-    margin-top: 3%;
+    margin-top: 5%;
     font-weight: normal;
     font-size: 1.2rem;
 }
@@ -148,4 +148,8 @@ select {
 
 .box:hover {
     border: 2px solid orange;
+}
+
+#knight {
+    width: 100%;
 }
