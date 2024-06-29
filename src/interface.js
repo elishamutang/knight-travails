@@ -106,7 +106,15 @@ export default function generateDOM() {
 
     // Listen to change events for select tags.
     startSelect.addEventListener('change', (e) => {
-        console.log(document.getElementById(`${startSelect.value}`))
+        // When changing the starting point, remove styling from previous starting point.
+        let findOldPoint = Array.from(document.getElementsByClassName('starting'))
+
+        let oldPoint = findOldPoint.shift()
+        oldPoint.className = 'box'
+
+        let newStartPoint = document.getElementById(`${startSelect.value}`)
+        newStartPoint.className += ' starting'
+        newStartPoint.append(knightImg)
     })
 
     endSelect.addEventListener('change', (e) => {})
