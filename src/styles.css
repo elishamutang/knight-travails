@@ -145,15 +145,32 @@ select {
     width: 100%;
     height: 100%;
     border: 2px solid black;
+}
 
-    container: tile / inline-size;
+.starting {
+    border: 2px solid orange;
+    animation: breathing 0.8s infinite ease-in-out alternate;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box:hover {
     border: 2px solid orange;
 }
 
+@keyframes breathing {
+    0% {
+        border-color: rgb(113, 73, 0);
+    }
+
+    100% {
+        border-color: rgb(244, 182, 67);
+    }
+}
+
 #knight {
-    width: 100%;
-    margin-top: 0.8ch;
+    max-width: 100%;
+    padding: 5px;
 }
