@@ -122,16 +122,46 @@ export default function generateDOM() {
     // Get input from select tags and generate shortest path when users click 'Show me the way' button.
     const submitBtn = document.getElementById('submitBtn')
 
-    submitBtn.addEventListener('click', (e) => {
-        // console.log(document.getElementById(`${startSelect.value}`))
-
+    submitBtn.addEventListener('click', () => {
         const startPoint = startSelect.value.split(',').map((num) => parseInt(num))
         const endPoint = endSelect.value.split(',').map((num) => parseInt(num))
 
-        let knightPath = knightMoves(startPoint, endPoint)
-        console.log(`You made it in ${knightPath.length - 1} moves! Here's your path:`)
-        knightPath.forEach((location) => {
-            console.log(location)
-        })
+        displayResult(startPoint, endPoint)
+    })
+}
+
+function displayResult(start, end) {
+    const resultDiv = document.getElementById('result')
+
+    let knightPath = knightMoves(start, end)
+    console.log(`You made it in ${knightPath.length - 1} moves! Here's your path:`)
+    knightPath.forEach((location) => {
+        console.log(location)
+    })
+
+    // Result heading
+    let resultText = document.createElement('h2')
+
+    // Overwrite existing h2 tag if there is one.
+    if (Array.from(resultDiv.children).length === 0) {
+        resultDiv.append(resultText)
+    } else {
+        resultText = Array.from(resultDiv.children).filter((elem) => {
+            if (elem.tagName === 'H2') return elem
+        })[0]
+    }
+
+    resultText.textContent = `You made it in ${knightPath.length - 1} moves! Here's your path:`
+
+    // Result path, remove older nodes and re-append the latest results.
+    Array.from(resultDiv.querySelectorAll('p')).forEach((node) => {
+        resultDiv.removeChild(node)
+    })
+
+    knightPath.forEach((location) => {
+        let resultPath = document.createElement('p')
+        resultPath.textContent = location
+
+        resultDiv.append(resultPath)
     })
 }
