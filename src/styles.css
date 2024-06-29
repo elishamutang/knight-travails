@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto';
 }
 
 :root {
@@ -47,7 +48,7 @@ body {
 #menu,
 #result {
     width: 100%;
-    border-radius: 8%;
+    border-radius: 20px;
     background-image: var(--menu-background);
     color: white;
 }
@@ -66,17 +67,30 @@ body {
 }
 
 #result {
-    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 #result > h2 {
-    margin: 5%;
+    margin: 3%;
+    margin-bottom: 0;
     text-align: center;
+}
+
+#result > p {
+    font-size: 1.5rem;
+    margin-top: 2%;
+}
+
+#result p:last-child {
+    margin-bottom: 3%;
 }
 
 #container {
     width: 40%;
-    max-width: 50%;
+    max-width: 40%;
     height: 85vh;
     border: 1px solid black;
 
@@ -197,5 +211,5 @@ select {
 
 #knight {
     max-width: 100%;
-    padding: 5px;
+    padding: 10px;
 }
