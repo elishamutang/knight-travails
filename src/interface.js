@@ -1,4 +1,5 @@
 import knight from './asset/knight.png'
+import knightMoves from './knightTravails.js'
 
 // Generate the chessboard
 const generateChessboard = () => {
@@ -51,9 +52,10 @@ export default function generateDOM() {
 
     locationHover.append(location)
 
+    // HOVER EFFECT (showing locations at each location of chessboard)
     // When user hovers over chessboard, it shows the location in [0,0] form at each box.
     chessboardCon.addEventListener('mouseover', (e) => {
-        if (e.target.className === 'box') {
+        if (Array.from(e.target.classList).includes('box')) {
             const coord = e.target.id.split(',').map((elem) => {
                 return parseInt(elem)
             })
@@ -94,6 +96,8 @@ export default function generateDOM() {
 
     // Initialize [0,0] as starting point. Put knight image at that location.
     const knightStartPoint = document.getElementById(`${startSelect.value}`)
+    knightStartPoint.className += ' starting'
+
     const knightImg = document.createElement('img')
     knightImg.id = 'knight'
     knightImg.src = knight
@@ -107,14 +111,19 @@ export default function generateDOM() {
 
     endSelect.addEventListener('change', (e) => {})
 
-    // Get input from select tags upon clicking submit button.
+    // Get input from select tags and generate shortest path when users click 'Show me the way' button.
     const submitBtn = document.getElementById('submitBtn')
 
     submitBtn.addEventListener('click', (e) => {
-        console.log(`Start: ${startSelect.value}`)
+        // console.log(document.getElementById(`${startSelect.value}`))
 
-        console.log(document.getElementById(`${startSelect.value}`))
+        const startPoint = startSelect.value.split(',').map((num) => parseInt(num))
+        const endPoint = endSelect.value.split(',').map((num) => parseInt(num))
 
-        console.log(`End: ${endSelect.value}`)
+        let knightPath = knightMoves(startPoint, endPoint)
+        console.log(`You made it in ${knightPath.length - 1} moves! Here's your path:`)
+        knightPath.forEach((location) => {
+            console.log(location)
+        })
     })
 }
