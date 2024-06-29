@@ -54,17 +54,17 @@ export default function generateDOM() {
 
     // HOVER EFFECT (showing locations at each location of chessboard)
     // When user hovers over chessboard, it shows the location in [0,0] form at each box.
-    chessboardCon.addEventListener('mouseover', (e) => {
-        if (Array.from(e.target.classList).includes('box')) {
-            const coord = e.target.id.split(',').map((elem) => {
-                return parseInt(elem)
-            })
+    const allBoxes = Array.from(document.getElementsByClassName('box'))
+
+    allBoxes.forEach((box) => {
+        box.addEventListener('mouseover', (e) => {
+            const coord = e.currentTarget.id.split(',').map((elem) => parseInt(elem))
 
             locationHover.querySelector('p').textContent = 'You are hovering on:'
 
             // Display at menu left of the chessboard.
-            location.textContent = `[${coord[0]}, ${coord[1]}]`
-        }
+            location.textContent = `[${coord[0]},${coord[1]}]`
+        })
     })
 
     chessboardCon.addEventListener('mouseleave', (e) => {
