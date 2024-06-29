@@ -7,21 +7,24 @@
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     </head>
     <body>
-        <div id="menu">
-            <div class="innerDiv" id="start">
-                <h1>Start</h1>
-                <select name="startPos" id="startPos"></select>
+        <div id="interface">
+            <div id="menu">
+                <div class="innerDiv" id="start">
+                    <h1>Start</h1>
+                    <select name="startPos" id="startPos"></select>
+                </div>
+                <div class="innerDiv" id="end">
+                    <h1>End</h1>
+                    <select name="endPos" id="endPos"></select>
+                </div>
+                <div class="innerDiv" id="submitBtnDiv">
+                    <button type="submit" id="submitBtn">Show me the way</button>
+                </div>
+                <div class="innerDiv" id="locationHover">
+                    <p>Hover over the tiles!</p>
+                </div>
             </div>
-            <div class="innerDiv" id="end">
-                <h1>End</h1>
-                <select name="endPos" id="endPos"></select>
-            </div>
-            <div class="innerDiv" id="submitBtnDiv">
-                <button type="submit" id="submitBtn">Show me the way</button>
-            </div>
-            <div class="innerDiv" id="locationHover">
-                <p>Hover over the tiles!</p>
-            </div>
+            <div id="result"></div>
         </div>
         <div id="container"></div>
     </body>
