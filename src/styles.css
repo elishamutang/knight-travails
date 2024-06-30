@@ -22,10 +22,7 @@ body {
     align-items: flex-start;
     gap: 1.5%;
 
-    background: linear-gradient(to bottom, #d5dee7 0%, #e8ebf2 50%, #e2e7ed 100%),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 50%, rgba(255, 255, 255, 0.02) 61%, rgba(0, 0, 0, 0.02) 73%),
-        linear-gradient(33deg, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
-    background-blend-mode: normal, color-burn;
+    background: lightyellow;
 }
 
 #interface,
@@ -34,8 +31,8 @@ body {
 }
 
 #interface {
-    width: 20%;
-    height: 100%;
+    width: 18%;
+    max-width: 18%;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -55,6 +52,7 @@ body {
 
 #menu {
     height: 30vh;
+    min-height: 30vh;
     grid-area: menu;
 
     display: grid;
@@ -64,6 +62,8 @@ body {
         'start end'
         'submit submit'
         'location location';
+
+    container: menu / inline-size;
 }
 
 #result {
@@ -71,6 +71,8 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+    container: result / inline-size;
 }
 
 #result > h2 {
@@ -85,21 +87,31 @@ body {
     }
 }
 
-#result > p {
-    font-size: 1.8rem;
+#pathwayText {
+    width: 100%;
+    max-height: 35vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    container: text / inline-size;
+}
+
+#pathwayText > p {
+    font-size: 5cqb;
     margin-top: 2%;
 
     color: orange;
     -webkit-text-stroke: yellow 1px;
 }
 
-#result p:last-child {
+#pathwayText p:last-child {
     margin-bottom: 5%;
 }
 
 #container {
-    width: 40%;
-    max-width: 40%;
     height: 85vh;
     border: 1px solid black;
 
@@ -118,7 +130,7 @@ body {
 }
 
 .innerDiv > h1 {
-    font-size: 2rem;
+    font-size: 5cqb;
 }
 
 .innerDiv > p {
@@ -143,7 +155,6 @@ body {
 
 select {
     width: 50%;
-    height: 20%;
     border: 1px solid silver;
     border-radius: 5px;
     text-align: center;
@@ -221,5 +232,95 @@ select {
 
 #knight {
     max-width: 100%;
-    padding: 10px;
+    object-fit: cover;
+}
+
+@media (max-width: 1050px) {
+    body {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+    }
+
+    #interface,
+    #container {
+        margin-top: 1.5vh;
+    }
+
+    #interface {
+        min-width: 100%;
+        display: flex;
+    }
+
+    #menu {
+        width: 100%;
+    }
+
+    #result > h2 {
+        font-size: 1.2rem;
+        margin: 3.5%;
+
+        span {
+            font-size: 1rem;
+        }
+    }
+
+    #pathwayText {
+        height: 20vh;
+    }
+
+    select {
+        width: 60%;
+    }
+}
+
+@media (max-width: 600px) {
+    #container {
+        width: 85vw;
+        height: 90vw;
+        margin: 0 auto;
+    }
+
+    #interface {
+        height: auto;
+        padding: 5vw;
+    }
+
+    #menu {
+        height: auto;
+    }
+
+    body {
+        min-height: auto;
+        gap: 3%;
+    }
+
+    .innerDiv > p,
+    #location {
+        font-size: 1rem;
+    }
+
+    #submitBtn {
+        width: 80%;
+        font-size: 0.8rem;
+    }
+}
+
+@container menu (max-width: 500px) {
+    #start > h1,
+    #end > h1 {
+        font-size: 3cqb;
+    }
+}
+
+@container text (max-width: 500px) {
+    #pathwayText > p {
+        font-size: 3cqb;
+    }
+}
+
+@container result (max-width: 500px) {
+    #result > h2 {
+        font-size: 2.5cqb;
+    }
 }
