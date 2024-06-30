@@ -42,6 +42,7 @@ module.exports = {
             title: 'Knight Travails',
             filename: 'index.html',
             template: 'src/template.html',
+            favicon: './src/asset/favicon.ico',
         }),
     ],
 }
