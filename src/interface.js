@@ -95,7 +95,7 @@ export default function generateDOM() {
     })
 
     // Initialize [0,0] as starting point. Put knight image at that location.
-    const knightStartPoint = document.getElementById(`${startSelect.value}`)
+    let knightStartPoint = document.getElementById(`${startSelect.value}`)
     knightStartPoint.className += ' starting'
 
     const knightImg = document.createElement('img')
@@ -115,6 +115,9 @@ export default function generateDOM() {
         let newStartPoint = document.getElementById(`${startSelect.value}`)
         newStartPoint.className += ' starting'
         newStartPoint.append(knightImg)
+
+        // Remove visited nodes
+        removeAllVisitedNodes(startSelect.value)
     })
 
     endSelect.addEventListener('change', (e) => {})
@@ -126,6 +129,14 @@ export default function generateDOM() {
         const startPoint = startSelect.value.split(',').map((num) => parseInt(num))
         const endPoint = endSelect.value.split(',').map((num) => parseInt(num))
 
+        // Move knight starting point if start point has changed from other than [0,0]
+        knightStartPoint = document.getElementById(`${startSelect.value}`)
+        knightStartPoint.append(knightImg)
+
+        // Remove styling from previously visited nodes.
+        removeAllVisitedNodes(startSelect.value)
+
+        // Display result and show the knight moving from each location in the path.
         displayResult(startPoint, endPoint)
     })
 }
@@ -148,7 +159,10 @@ function displayResult(start, end) {
         })[0]
     }
 
-    resultText.innerHTML = `You made it in <span>${knightPath.length - 1}</span> moves! Here's your path:`
+    resultText.innerHTML =
+        knightPath.length > 2
+            ? `You made it in <span>${knightPath.length - 1}</span> moves! Here's your path:`
+            : `You made it in <span>${knightPath.length - 1}</span> move! Here's your path:`
 
     // Result path, remove older nodes and re-append the latest results.
     Array.from(resultDiv.querySelectorAll('p')).forEach((node) => {
@@ -173,13 +187,21 @@ function moveTheKnight(knightPath) {
         document.getElementById('result').append(resultPath)
 
         // Apply styling to the tiles that has been visited.
-        if (!Array.from(knightLocElem.classList).includes('starting')) {
-            let knightImg = document.getElementById('knight')
+        let knightImg = document.getElementById('knight')
 
-            knightLocElem.className += ' starting'
-            knightLocElem.append(knightImg)
-        }
+        knightLocElem.className += ' visit'
+        knightLocElem.append(knightImg)
 
         moveTheKnight(knightPath)
     }, 1000)
+}
+
+function removeAllVisitedNodes(startPoint) {
+    const getAllVisitedNodes = Array.from(document.getElementsByClassName('visit'))
+
+    getAllVisitedNodes.forEach((node) => {
+        if (node.id !== startPoint) {
+            node.className = 'box'
+        }
+    })
 }
