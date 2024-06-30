@@ -125,6 +125,9 @@ export default function generateDOM() {
     // Get input from select tags and generate shortest path when users click 'Show me the way' button.
     const submitBtn = document.getElementById('submitBtn')
 
+    const resultDiv = document.createElement('div')
+    resultDiv.id = 'result'
+
     submitBtn.addEventListener('click', () => {
         const startPoint = startSelect.value.split(',').map((num) => parseInt(num))
         const endPoint = endSelect.value.split(',').map((num) => parseInt(num))
@@ -137,6 +140,12 @@ export default function generateDOM() {
         removeAllVisitedNodes(startSelect.value)
 
         // Display result and show the knight moving from each location in the path.
+        const interfaceDivChildren = Array.from(document.getElementById('interface').children)
+
+        if (!interfaceDivChildren.includes(resultDiv)) {
+            document.getElementById('interface').append(resultDiv)
+        }
+
         displayResult(startPoint, endPoint)
     })
 }
@@ -149,6 +158,10 @@ function displayResult(start, end) {
 
     // Result heading
     let resultText = document.createElement('h2')
+
+    // Pathway text
+    let pathwayText = document.createElement('div')
+    pathwayText.id = 'pathwayText'
 
     // Overwrite existing h2 tag if there is one.
     if (Array.from(resultDiv.children).length === 0) {
@@ -164,10 +177,17 @@ function displayResult(start, end) {
             ? `You made it in <span>${knightPath.length - 1}</span> moves! Here's your path:`
             : `You made it in <span>${knightPath.length - 1}</span> move! Here's your path:`
 
-    // Result path, remove older nodes and re-append the latest results.
-    Array.from(resultDiv.querySelectorAll('p')).forEach((node) => {
-        resultDiv.removeChild(node)
-    })
+    // Over-write path text in the interface if pathwayText is in DOM, else append it to DOM.
+    if (!document.getElementById('pathwayText')) {
+        resultDiv.append(pathwayText)
+    } else {
+        // Result path, remove older nodes and re-append the latest results.
+        pathwayText = document.getElementById('pathwayText')
+
+        Array.from(pathwayText.querySelectorAll('p')).forEach((node) => {
+            pathwayText.removeChild(node)
+        })
+    }
 
     // Move the knight as the path is generated.
     moveTheKnight(knightPath)
@@ -184,7 +204,7 @@ function moveTheKnight(knightPath) {
         let resultPath = document.createElement('p')
         resultPath.textContent = knightLoc
 
-        document.getElementById('result').append(resultPath)
+        document.getElementById('pathwayText').append(resultPath)
 
         // Apply styling to the tiles that has been visited.
         let knightImg = document.getElementById('knight')
