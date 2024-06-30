@@ -130,14 +130,11 @@ export default function generateDOM() {
     })
 }
 
+// Shows shortest path from start to end on the interface.
 function displayResult(start, end) {
     const resultDiv = document.getElementById('result')
 
     let knightPath = knightMoves(start, end)
-    console.log(`You made it in ${knightPath.length - 1} moves! Here's your path:`)
-    knightPath.forEach((location) => {
-        console.log(location)
-    })
 
     // Result heading
     let resultText = document.createElement('h2')
@@ -151,17 +148,38 @@ function displayResult(start, end) {
         })[0]
     }
 
-    resultText.textContent = `You made it in ${knightPath.length - 1} moves! Here's your path:`
+    resultText.innerHTML = `You made it in <span>${knightPath.length - 1}</span> moves! Here's your path:`
 
     // Result path, remove older nodes and re-append the latest results.
     Array.from(resultDiv.querySelectorAll('p')).forEach((node) => {
         resultDiv.removeChild(node)
     })
 
-    knightPath.forEach((location) => {
-        let resultPath = document.createElement('p')
-        resultPath.textContent = location
+    // Move the knight as the path is generated.
+    moveTheKnight(knightPath)
+}
 
-        resultDiv.append(resultPath)
-    })
+function moveTheKnight(knightPath) {
+    if (knightPath.length === 0) return
+
+    let knightLoc = knightPath.shift()
+    let knightLocElem = document.getElementById(`${knightLoc[0]},${knightLoc[1]}`)
+
+    setTimeout(() => {
+        // Generate path and display to user.
+        let resultPath = document.createElement('p')
+        resultPath.textContent = knightLoc
+
+        document.getElementById('result').append(resultPath)
+
+        // Apply styling to the tiles that has been visited.
+        if (!Array.from(knightLocElem.classList).includes('starting')) {
+            let knightImg = document.getElementById('knight')
+
+            knightLocElem.className += ' starting'
+            knightLocElem.append(knightImg)
+        }
+
+        moveTheKnight(knightPath)
+    }, 1000)
 }
