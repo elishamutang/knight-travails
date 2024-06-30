@@ -39,7 +39,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: '',
+            title: 'Knight Travails',
             filename: 'index.html',
             template: 'src/template.html',
         }),
